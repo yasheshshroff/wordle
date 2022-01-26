@@ -42,16 +42,19 @@ def wordle():
 
     # Exit if input is contradictory or too long
     common_letters = list(set(avoid) & set(use))
+    no_error = True
+    messages = []
     if (len(common_letters) > 0 ):
-        messages = [f"You are asking me to find words with letters to be used AND avoided: {', '.join(common_letters)}. Retry"]
-        return render_template('index.html', headers=messages, results="લાલ્લૂ માસ્ટર")
+        messages.append(f"You are asking me to find words with letters to be used AND avoided: {', '.join(common_letters)}. Retry")
+        no_error = False 
     if (len(use) > 5):
-        messages = [f"The number of letters that must be used cannot be greater than 5. Retry"]
+        messages.append(f"The number of letters that must be used cannot be greater than 5. Retry")
+        no_error = False
+    if (not no_error):
         return render_template('index.html', headers=messages, results="લાલ્લૂ માસ્ટર")
 
     # Find all words in list p that include all the letters in pattern in any order
     results = p.copy()
-    messages = []
     messages.append(f"Started with {len(results)} words")
     for c in set(use):
         results = [x for x in results if re.search("(?=.*" + c + ").*", x)]

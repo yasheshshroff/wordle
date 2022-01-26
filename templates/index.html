@@ -3,7 +3,7 @@
 <head>
 <meta charset=utf-8>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Congratulations | Cloud Run</title>
+<title>Wordle Solver</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="preload" as="font">
 <link href="/static/cloud-run-32-color.png" rel="icon" type="image/png" />
 <link href="/static/style.css" rel="stylesheet" type="text/css" />
@@ -31,18 +31,18 @@
                 </form>
 			</div>
             <br>
-            <div class='callout' style="text-align:center">
-                {% if results %} {{ results }}  {% endif %}
-            </div>
-            <div class='message' style="text-align:center">
-                {% if headers %}
-                <ul>
-                    {% for line in headers %}
-                        <br>{{ line }}</br>
-                    {% endfor %}
-                </ul>
-                <br>
-                {% endif %}
-            </div>
-
+            {% if results %} 
+                <div class='callout' style="text-align:center">
+                    {{ results }}  
+                </div>
+            {% endif %}
+            {% if headers %}
+                <div class='message' style="text-align:center">
+                    <ul>
+                        {% for line in headers %}
+                            <br>{{ line }}</br>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
 		</div>

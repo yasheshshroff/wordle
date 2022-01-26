@@ -52,13 +52,13 @@ em {
 }
 
 .hero .message {
-	font-size: 15px;
+	font-size: 20px;
 	text-align: center;
 	margin-bottom: 24px;
 }
 
 .hero .output {
-	font-size: 15px;
+	font-size: 20px;
 	text-align: center;
 	margin-bottom: 12px;
 }
@@ -70,7 +70,7 @@ em {
 }
 
 .hero .callout {
-	font-size: 14px;
+	font-size: 20px;
 	color: #1967D2;
 	font-weight: 600;
 	padding: 16px 24px 16px 40px;
