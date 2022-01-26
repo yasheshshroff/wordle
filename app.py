@@ -45,7 +45,7 @@ def wordle():
         place = 'place' + index + 1
         p[index] = request.form[place].lower()
         p[index] = re.sub(r'[^a-z]', '', p[index])
-        if len(p[index]) > 1):
+        if (len(p[index]) > 1):
             p[index] = p[index][0]
         if p[index]:
             pattern = pattern + p[index]
