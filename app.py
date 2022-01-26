@@ -39,7 +39,18 @@ def wordle():
 
     avoid = request.form['avoid'].lower()
     avoid = set(re.sub(r'[^a-z]', '', avoid))
-
+    p = [None] * 5
+    pattern = ""
+    for index in range(5):
+        place = 'place' + index + 1
+        p[index] = request.form[place].lower()
+        p[index] = re.sub(r'[^a-z]', '', p[index])
+        if len(p[index]) > 1):
+            p[index] = p[index][0]
+        if p[index]:
+            pattern = pattern + p[index]
+        else:
+            pattern = pattern + "."
     # Exit if input is contradictory or too long
     common_letters = list(set(avoid) & set(use))
     no_error = True
@@ -56,12 +67,17 @@ def wordle():
     # Find all words in list p that include all the letters in pattern in any order
     results = p.copy()
     messages.append(f"Started with {len(results)} words")
+
+    # Work on the known pattern
+    results = [x for x in results if re.search(pattern, x)]
+    messages.append(f"Filtered to {len(results)} words with pattern {pattern}")
+
     for c in set(use):
         results = [x for x in results if re.search("(?=.*" + c + ").*", x)]
         messages.append(f"Filtered to {len(results)} words with {c}")
     for c in set(avoid):
         results = [x for x in results if not re.search("(?=.*" + c + ").*", x)]
-        messages.append(f"Filtered to {len(results)} words with {c}")
+        messages.append(f"Filtered to {len(results)} words without {c}")
 
     return render_template('index.html',
         headers=messages,

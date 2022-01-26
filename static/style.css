@@ -147,3 +147,15 @@ code {
     margin-bottom: 0em;
     margin-top: 0em;
 }
+
+#textletter{
+    background-image: url('sq.gif');
+    width: 195px;
+    height: 18px;
+    background-size: 20px;
+    border: none;
+    font-family: monospace;
+    font-size: 13px;
+    padding-left: 5px;
+    letter-spacing: 12px;
+}
