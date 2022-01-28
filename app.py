@@ -33,28 +33,33 @@ def wordle():
     Return render_template that takes user input "pattern" from a form and regex matches all words in p that include all letters in "pattern" in any order. 
     For instance, if pattern = "ab", then the regex should match "ab", "ba", "abc", "bac", "cab", "cba", etc.
     """
+    # Initialize some variables
+    pl = [None] * 5 #  Input pattern buffer for each character
+    pattern = ""   #  Regex pattern
+    messages = []  #  user message log
+
     # Sanitie the input into lower case & remove all non-ascii characters
     use = request.form['use'].lower()
     use = set(re.sub(r'[^a-z]', '', use))
 
     avoid = request.form['avoid'].lower()
     avoid = set(re.sub(r'[^a-z]', '', avoid))
-    p = [None] * 5
-    pattern = ""
     for index in range(5):
-        place = 'place' + index + 1
-        p[index] = request.form[place].lower()
-        p[index] = re.sub(r'[^a-z]', '', p[index])
-        if (len(p[index]) > 1):
-            p[index] = p[index][0]
-        if p[index]:
-            pattern = pattern + p[index]
+        place = 'place' + str(index+1)
+        pl[index] = request.form[place].lower()
+        pl[index] = re.sub(r'[^a-z]', '', pl[index])
+        if (len(pl[index]) > 1):
+            pl[index] = pl[index][0]
+        if pl[index]:
+            pattern = pattern + pl[index]
         else:
             pattern = pattern + "."
+
+
     # Exit if input is contradictory or too long
     common_letters = list(set(avoid) & set(use))
     no_error = True
-    messages = []
+
     if (len(common_letters) > 0 ):
         messages.append(f"You are asking me to find words with letters to be used AND avoided: {', '.join(common_letters)}. Retry")
         no_error = False 
@@ -70,7 +75,17 @@ def wordle():
 
     # Work on the known pattern
     results = [x for x in results if re.search(pattern, x)]
-    messages.append(f"Filtered to {len(results)} words with pattern {pattern}")
+
+    # Pretty print the pattern
+    pl = ", ".join([x if x else "_" for x in pl])
+
+    if (len(results) == 0):
+        messages.append(f"No words found with ordered letters {pl}. No further filters applied.")
+        return render_template('index.html',
+            headers=messages,
+            results="--> Try a different pattern <--")
+    else:
+        messages.append(f"Found {len(results)} words with ordered letters {pl}")
 
     for c in set(use):
         results = [x for x in results if re.search("(?=.*" + c + ").*", x)]
@@ -78,6 +93,12 @@ def wordle():
     for c in set(avoid):
         results = [x for x in results if not re.search("(?=.*" + c + ").*", x)]
         messages.append(f"Filtered to {len(results)} words without {c}")
+
+    # Sort the results
+    try:
+        results.sort()
+    except:
+        pass
 
     return render_template('index.html',
         headers=messages,
