@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Wordle Solver</title>
+        <meta name="description" content="A simple wordle solver"/>
+        <meta name="keywords" content="Wordle, Solver, Mobile"/>
+        <meta name="author" content="YS" />
+        <meta name="copyright" content="YS" />
+        <!--
+            <meta name="robots" content="index"/>
+            <meta name="robots" content="follow"/>
+            <meta name="msapplication-TileColor" content="#da532c">
+            <meta name="theme-color" content="#ffffff">
+
+            <link rel="stylesheet" href="/static/css/normalize.css"/>
+            <link rel="stylesheet" href="/static/css/skeleton.css"/>
+        -->
+
+        <link rel="stylesheet" href="/static/style.css" type="text/css" />
+        <link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto" as="font">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="icon" href="/static/cloud-run-32-color.png" type="image/png" />
+
+    </head>
+    <body>
+    <div class="container">
+        <div class="topnav" id="myTopnav">
+            <a href="/" class="active">Home</a>
+            <div class="dropdown">
+                <button class="dropbtn">About
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/about">About</a>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+
+            <div style="clear: both">
+
+                {% block content%}{% endblock %}
+
+            </div>
+
+        <script>
+        function myFunction() {
+          var x = document.getElementById("myTopnav");
+          if (x.className === "topnav") {
+            x.className += " responsive";
+          } else {
+            x.className = "topnav";
+          }
+        }
+        </script>
+
+        </div>
+    </body>
+</html>

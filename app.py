@@ -2,6 +2,7 @@
 A Flask application that routes user input to the appropriate function.
 """
 import os
+from pyexpat.errors import messages
 from flask import Flask, render_template, request
 from english_words import english_words_lower_alpha_set
 import re
@@ -25,6 +26,14 @@ def hello():
         message=message,
         Service=service,
         Revision=revision)
+
+@app.route('/about')
+def about():
+    messages = []
+    messages.append("A Wordle solver by Yash")
+    messages.append("Last updated: Jan 2022")
+    return render_template('index.html',
+        about=messages)
 
 # Write a method to handle flask post request taking user input "word" from a form    
 @app.route('/wordle', methods=['POST'])
