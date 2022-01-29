@@ -25,17 +25,17 @@
             <h2>Congratulations, you are about to master Wordle</h2>
             <form action="{{ url_for('wordle') }}" method="post">
                 <label for="use">Letters that must be <b>used</b>:</label>
-                <input id="use" type="textbox" name="use" value="{{ request.form['use'] }}"> <br>
+                <input id="use" type="textbox" name="use" maxlength="5" value="{{ request.form['use'] }}"> <br>
                 <label for="avoid">Letters that must be <b>avoided</b>:</label>
                 <input id="avoid" type="textbox" name="avoid" value="{{ request.form['avoid'] }}">
                 <br>
                 <label for="place">Letter slots known (optional):</label><br>
-                <input id="place1" type="textletter" name="place1" value="{{ request.form['place1'] }}">
-                <input id="place2" type="textletter" name="place2" value="{{ request.form['place2'] }}">
-                <input id="place3" type="textletter" name="place3" value="{{ request.form['place3'] }}">
-                <input id="place4" type="textletter" name="place4" value="{{ request.form['place4'] }}">
-                <input id="place5" type="textletter" name="place5" value="{{ request.form['place5'] }}"><br>
-                <input type="submit">
+                <input id="place1" type="textletter" name="place1" maxlength="1" value="{{ request.form['place1'] }}">
+                <input id="place2" type="textletter" name="place2" maxlength="1" value="{{ request.form['place2'] }}">
+                <input id="place3" type="textletter" name="place3" maxlength="1" value="{{ request.form['place3'] }}">
+                <input id="place4" type="textletter" name="place4" maxlength="1" value="{{ request.form['place4'] }}">
+                <input id="place5" type="textletter" name="place5" maxlength="1" value="{{ request.form['place5'] }}">
+                <br><input type="submit">
             </form>
         </div>
         <br>
